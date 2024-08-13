@@ -20,8 +20,8 @@ abstract class StartUp
         $this->container = new Container();
 
         $this->boot();
-        $this->setting();
-        $this->registerSettings();
+        $this->adminPages();
+        $this->registerAdminPages();
 
         $this->components();
         $this->registerComponents();
@@ -50,7 +50,7 @@ abstract class StartUp
     /**
      * @throws \ReflectionException
      */
-    private function registerSettings(): void
+    private function registerAdminPages(): void
     {
         foreach ($this->adminPages as $adminPage) {
             $service = $this->container->get($adminPage);
@@ -62,5 +62,5 @@ abstract class StartUp
 
     abstract protected function boot(): void;
     abstract protected function components(): void;
-    abstract protected function setting(): void;
+    abstract protected function adminPages(): void;
 }

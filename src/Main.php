@@ -16,7 +16,7 @@ class Main extends StartUp
         $this->addComponent(TestComponent::class);
     }
 
-    protected function setting(): void
+    protected function adminPages(): void
     {
         $this->addAdminPage(MainPage::class);
     }
