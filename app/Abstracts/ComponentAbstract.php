@@ -6,7 +6,7 @@ namespace Realtyna\Core\Abstracts;
  * Class ComponentAbstract
  *
  * A base class for components in the Realtyna plugin.
- * This class handles the registration of subcomponents, admin pages, custom post types, and AJAX handlers.
+ * This class handles the registration of subcomponents, admin pages, custom post types, AJAX handlers, and shortcodes.
  */
 abstract class ComponentAbstract
 {
@@ -31,10 +31,15 @@ abstract class ComponentAbstract
     protected array $ajaxHandlers = [];
 
     /**
+     * @var array List of shortcode class names.
+     */
+    protected array $shortcodes = [];
+
+    /**
      * ComponentAbstract constructor.
      *
      * Initializes the component by calling methods to define and register post types,
-     * subcomponents, admin pages, and AJAX handlers.
+     * subcomponents, admin pages, AJAX handlers, and shortcodes.
      *
      * @throws \ReflectionException
      */
@@ -44,10 +49,12 @@ abstract class ComponentAbstract
         $this->subComponents();
         $this->adminPages();
         $this->ajaxHandlers();
+        $this->shortcodes();
+        $this->registerAdminPages();
         $this->registerPostTypes();
         $this->registerSubComponents();
-        $this->registerAdminPages();
         $this->registerAjaxHandlers();
+        $this->registerShortcodes();
         $this->register();
     }
 
@@ -90,6 +97,14 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function ajaxHandlers(): void;
+
+    /**
+     * Defines the shortcodes that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function shortcodes(): void;
 
     /**
      * Adds an admin page to the component.
@@ -189,6 +204,32 @@ abstract class ComponentAbstract
         foreach ($this->ajaxHandlers as $ajaxHandler) {
             $service = new $ajaxHandler();
             if ($service instanceof AjaxHandlerAbstract && method_exists($service, 'register')) {
+                $service->register();
+            }
+        }
+    }
+
+    /**
+     * Adds a shortcode to the component.
+     *
+     * @param string $shortcode The class name of the shortcode to add.
+     * @return void
+     */
+    public function addShortcode(string $shortcode): void
+    {
+        $this->shortcodes[] = $shortcode;
+    }
+
+    /**
+     * Registers all shortcodes associated with the component.
+     *
+     * @return void
+     */
+    private function registerShortcodes(): void
+    {
+        foreach ($this->shortcodes as $shortcode) {
+            $service = new $shortcode();
+            if ($service instanceof ShortcodeAbstract && method_exists($service, 'register')) {
                 $service->register();
             }
         }
