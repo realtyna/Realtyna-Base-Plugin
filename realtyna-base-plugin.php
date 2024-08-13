@@ -50,7 +50,7 @@ try {
     register_deactivation_hook(__FILE__, [$pluginClass, 'deactivation']);
 
     // Register uninstall hook to handle tasks during plugin uninstallation.
-    register_uninstall_hook(__FILE__, [$pluginClass, 'uninstallation']);
+    register_uninstall_hook(__FILE__, [Main::class, 'uninstallation']);
 
 } catch (Exception $e) {
     // Display an error notice in the WordPress admin if an exception occurs.

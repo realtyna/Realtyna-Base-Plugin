@@ -13,7 +13,6 @@ class Main extends StartUp
 
     protected function components(): void
     {
-        //RestApiEndpointAbstract
         //WidgetAbstract
         //GutenbergBlockAbstract
         //CustomTaxonomyAbstract
@@ -32,5 +31,20 @@ class Main extends StartUp
     {
         // Set the container in the App class for global access.
         App::setContainer($this->container);
+    }
+
+    public function activation()
+    {
+
+    }
+
+    public function deactivation()
+    {
+
+    }
+
+    public static function uninstallation()
+    {
+
     }
 }
