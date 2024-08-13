@@ -16,6 +16,11 @@ abstract class ComponentAbstract
     protected array $subComponents = [];
 
     /**
+     * @var array List of admin page class names.
+     */
+    protected array $adminPages = [];
+
+    /**
      * @var array List of custom post type class names.
      */
     protected array $postTypes = [];
@@ -32,6 +37,8 @@ abstract class ComponentAbstract
     {
         $this->postTypes();
         $this->subComponents();
+        $this->adminPages();
+        $this->registerAdminPages();
         $this->registerPostTypes();
         $this->registerSubComponents();
         $this->register();
@@ -60,6 +67,40 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function subComponents(): void;
+
+    /**
+     * Defines the admin pages that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function adminPages(): void;
+
+    /**
+     * Adds an admin page to the component.
+     *
+     * @param string $adminPage The class name of the admin page to add.
+     * @return void
+     */
+    public function addAdminPage(string $adminPage): void
+    {
+        $this->adminPages[] = $adminPage;
+    }
+
+    /**
+     * Registers all admin pages associated with the component.
+     *
+     * @return void
+     */
+    private function registerAdminPages(): void
+    {
+        foreach ($this->adminPages as $adminPage) {
+            $service = new $adminPage();
+            if ($service instanceof AdminPageAbstract && method_exists($service, 'register')) {
+                $service->register();
+            }
+        }
+    }
 
     /**
      * Adds a custom post type to the component.

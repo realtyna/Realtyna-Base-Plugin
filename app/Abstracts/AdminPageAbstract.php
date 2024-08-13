@@ -14,7 +14,7 @@ abstract class AdminPageAbstract
     /**
      * Method to initialize the admin page.
      */
-    public function register()
+    public function register(): void
     {
         add_action('admin_menu', [$this, 'addMenuPage']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
