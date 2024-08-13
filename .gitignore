@@ -1,0 +1,33 @@
+# Ignore common plugin files/directories
+node_modules/
+vendor/
+composer.lock
+yarn.lock
+npm-debug.log
+.DS_Store
+*.log
+*.tmp
+
+# Ignore IDE/editor configuration files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore build tools and artifacts
+/dist/
+/build/
+/*.zip
+
+# Ignore other system files
+Thumbs.db
+ehthumbs.db
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Ignore files from a local environment (if applicable)
+.env
+.env.local
+.env.*.local
