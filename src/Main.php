@@ -2,18 +2,19 @@
 
 namespace Realtyna\BasePlugin;
 
+use Realtyna\BasePlugin\Components\TestComponent;
 use Realtyna\Core\StartUp;
 
 class Main extends StartUp
 {
 
 
-    protected function components()
+    protected function components(): void
     {
-        // TODO: Implement components() method.
+        $this->addComponent(TestComponent::class);
     }
 
-    protected function setting()
+    protected function setting(): void
     {
         // TODO: Implement setting() method.
     }
