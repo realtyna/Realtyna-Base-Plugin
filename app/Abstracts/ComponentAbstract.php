@@ -36,6 +36,11 @@ abstract class ComponentAbstract
     protected array $shortcodes = [];
 
     /**
+     * @var array List of REST API endpoint class names.
+     */
+    protected array $restApiEndpoints = [];
+
+    /**
      * ComponentAbstract constructor.
      *
      * Initializes the component by calling methods to define and register post types,
@@ -43,6 +48,7 @@ abstract class ComponentAbstract
      *
      * @throws \ReflectionException
      */
+    // In the constructor, add a call to registerRestApiEndpoints
     public function __construct()
     {
         $this->postTypes();
@@ -50,11 +56,13 @@ abstract class ComponentAbstract
         $this->adminPages();
         $this->ajaxHandlers();
         $this->shortcodes();
+        $this->restApiEndpoints();
         $this->registerAdminPages();
         $this->registerPostTypes();
         $this->registerSubComponents();
         $this->registerAjaxHandlers();
         $this->registerShortcodes();
+        $this->registerRestApiEndpoints();
         $this->register();
     }
 
@@ -105,6 +113,14 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function shortcodes(): void;
+
+    /**
+     * Defines the REST API endpoints that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function restApiEndpoints(): void;
 
     /**
      * Adds an admin page to the component.
@@ -232,6 +248,29 @@ abstract class ComponentAbstract
             if ($service instanceof ShortcodeAbstract && method_exists($service, 'register')) {
                 $service->register();
             }
+        }
+    }
+
+    /**
+     * Adds a REST API endpoint to the component.
+     *
+     * @param string $restApiEndpoint The class name of the REST API endpoint to add.
+     * @return void
+     */
+    public function addRestApiEndpoint(string $restApiEndpoint): void
+    {
+        $this->restApiEndpoints[] = $restApiEndpoint;
+    }
+
+    /**
+     * Registers all REST API endpoints associated with the component.
+     *
+     * @return void
+     */
+    private function registerRestApiEndpoints(): void
+    {
+        foreach ($this->restApiEndpoints as $restApiEndpoint) {
+            new $restApiEndpoint();
         }
     }
 }
