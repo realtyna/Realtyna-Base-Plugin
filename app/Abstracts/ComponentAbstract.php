@@ -41,6 +41,11 @@ abstract class ComponentAbstract
     protected array $restApiEndpoints = [];
 
     /**
+     * @var array List of widget class names.
+     */
+    protected array $widgets = [];
+
+    /**
      * ComponentAbstract constructor.
      *
      * Initializes the component by calling methods to define and register post types,
@@ -57,12 +62,14 @@ abstract class ComponentAbstract
         $this->ajaxHandlers();
         $this->shortcodes();
         $this->restApiEndpoints();
+        $this->widgets();
         $this->registerAdminPages();
         $this->registerPostTypes();
         $this->registerSubComponents();
         $this->registerAjaxHandlers();
         $this->registerShortcodes();
         $this->registerRestApiEndpoints();
+        $this->registerWidgets();
         $this->register();
     }
 
@@ -121,6 +128,14 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function restApiEndpoints(): void;
+
+    /**
+     * Defines the widgets that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function widgets(): void;
 
     /**
      * Adds an admin page to the component.
@@ -271,6 +286,30 @@ abstract class ComponentAbstract
     {
         foreach ($this->restApiEndpoints as $restApiEndpoint) {
             new $restApiEndpoint();
+        }
+    }
+
+    /**
+     * Adds a widget to the component.
+     *
+     * @param string $widget The class name of the widget to add.
+     * @return void
+     */
+    public function addWidget(string $widget): void
+    {
+        $this->widgets[] = $widget;
+    }
+
+    /**
+     * Registers all widgets associated with the component.
+     *
+     * @return void
+     */
+    private function registerWidgets(): void
+    {
+        foreach ($this->widgets as $widget) {
+            new $widget();
+            // The widget will automatically register itself via the constructor in WidgetAbstract
         }
     }
 }
