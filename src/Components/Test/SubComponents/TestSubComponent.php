@@ -31,4 +31,9 @@ class TestSubComponent extends ComponentAbstract
     {
         // TODO: Implement shortcodes() method.
     }
+
+    public function restApiEndpoints(): void
+    {
+        // TODO: Implement restApiEndpoints() method.
+    }
 }

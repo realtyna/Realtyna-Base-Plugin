@@ -13,7 +13,6 @@ class Main extends StartUp
 
     protected function components(): void
     {
-        //ShortcodeAbstract
         //RestApiEndpointAbstract
         //WidgetAbstract
         //GutenbergBlockAbstract
