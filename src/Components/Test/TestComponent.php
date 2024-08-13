@@ -8,6 +8,7 @@ use Realtyna\BasePlugin\Components\Test\PostTypes\TestPostType;
 use Realtyna\BasePlugin\Components\Test\RestApiEndpoints\TestRestApiEndpoint;
 use Realtyna\BasePlugin\Components\Test\Shortcodes\TestShortcode;
 use Realtyna\BasePlugin\Components\Test\SubComponents\TestSubComponent;
+use Realtyna\BasePlugin\Components\Test\Widgets\TestWidget;
 use Realtyna\Core\Abstracts\ComponentAbstract;
 
 class TestComponent extends ComponentAbstract
@@ -46,5 +47,10 @@ class TestComponent extends ComponentAbstract
     public function restApiEndpoints(): void
     {
         $this->addRestApiEndpoint(TestRestApiEndpoint::class);
+    }
+
+    public function widgets(): void
+    {
+        $this->addWidget(TestWidget::class);
     }
 }

@@ -34,6 +34,9 @@ class TestSubComponent extends ComponentAbstract
 
     public function restApiEndpoints(): void
     {
-        // TODO: Implement restApiEndpoints() method.
+    }
+
+    public function widgets(): void
+    {
     }
 }
