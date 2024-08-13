@@ -4,6 +4,7 @@ namespace Realtyna\BasePlugin;
 
 use Realtyna\BasePlugin\Boot\App;
 use Realtyna\BasePlugin\Components\TestComponent;
+use Realtyna\BasePlugin\Settings\MainPage;
 use Realtyna\Core\StartUp;
 
 class Main extends StartUp
@@ -17,7 +18,7 @@ class Main extends StartUp
 
     protected function setting(): void
     {
-        // TODO: Implement setting() method.
+        $this->addAdminPage(MainPage::class);
     }
 
     protected function boot(): void
