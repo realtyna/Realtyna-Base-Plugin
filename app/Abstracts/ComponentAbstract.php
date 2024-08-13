@@ -6,7 +6,7 @@ namespace Realtyna\Core\Abstracts;
  * Class ComponentAbstract
  *
  * A base class for components in the Realtyna plugin.
- * This class handles the registration of subcomponents, admin pages, and custom post types.
+ * This class handles the registration of subcomponents, admin pages, custom post types, and AJAX handlers.
  */
 abstract class ComponentAbstract
 {
@@ -26,10 +26,15 @@ abstract class ComponentAbstract
     protected array $postTypes = [];
 
     /**
+     * @var array List of AJAX handler class names.
+     */
+    protected array $ajaxHandlers = [];
+
+    /**
      * ComponentAbstract constructor.
      *
      * Initializes the component by calling methods to define and register post types,
-     * subcomponents, and admin pages.
+     * subcomponents, admin pages, and AJAX handlers.
      *
      * @throws \ReflectionException
      */
@@ -38,9 +43,11 @@ abstract class ComponentAbstract
         $this->postTypes();
         $this->subComponents();
         $this->adminPages();
-        $this->registerAdminPages();
+        $this->ajaxHandlers();
         $this->registerPostTypes();
         $this->registerSubComponents();
+        $this->registerAdminPages();
+        $this->registerAjaxHandlers();
         $this->register();
     }
 
@@ -75,6 +82,14 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function adminPages(): void;
+
+    /**
+     * Defines the AJAX handlers that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function ajaxHandlers(): void;
 
     /**
      * Adds an admin page to the component.
@@ -148,6 +163,32 @@ abstract class ComponentAbstract
         foreach ($this->subComponents as $subComponent) {
             $service = new $subComponent();
             if ($service instanceof ComponentAbstract && method_exists($service, 'register')) {
+                $service->register();
+            }
+        }
+    }
+
+    /**
+     * Adds an AJAX handler to the component.
+     *
+     * @param string $ajaxHandler The class name of the AJAX handler to add.
+     * @return void
+     */
+    public function addAjaxHandler(string $ajaxHandler): void
+    {
+        $this->ajaxHandlers[] = $ajaxHandler;
+    }
+
+    /**
+     * Registers all AJAX handlers associated with the component.
+     *
+     * @return void
+     */
+    private function registerAjaxHandlers(): void
+    {
+        foreach ($this->ajaxHandlers as $ajaxHandler) {
+            $service = new $ajaxHandler();
+            if ($service instanceof AjaxHandlerAbstract && method_exists($service, 'register')) {
                 $service->register();
             }
         }
