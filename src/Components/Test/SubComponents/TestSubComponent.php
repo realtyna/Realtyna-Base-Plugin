@@ -26,4 +26,9 @@ class TestSubComponent extends ComponentAbstract
     public function ajaxHandlers(): void
     {
     }
+
+    public function shortcodes(): void
+    {
+        // TODO: Implement shortcodes() method.
+    }
 }
