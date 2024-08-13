@@ -3,6 +3,7 @@
 namespace Realtyna\BasePlugin\Components\Test;
 
 use Realtyna\BasePlugin\Components\Test\AdminPages\TestAdminPage;
+use Realtyna\BasePlugin\Components\Test\AjaxHandlers\TestAjaxHandler;
 use Realtyna\BasePlugin\Components\Test\PostTypes\TestPostType;
 use Realtyna\BasePlugin\Components\Test\SubComponents\TestSubComponent;
 use Realtyna\Core\Abstracts\ComponentAbstract;
@@ -30,4 +31,8 @@ class TestComponent extends ComponentAbstract
     }
 
 
+    public function ajaxHandlers(): void
+    {
+        $this->addAjaxHandler(TestAjaxHandler::class);
+    }
 }

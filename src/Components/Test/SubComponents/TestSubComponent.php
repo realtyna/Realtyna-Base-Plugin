@@ -22,4 +22,8 @@ class TestSubComponent extends ComponentAbstract
     public function register(): void
     {
     }
+
+    public function ajaxHandlers(): void
+    {
+    }
 }
