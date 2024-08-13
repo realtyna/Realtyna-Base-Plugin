@@ -3,7 +3,7 @@
 namespace Realtyna\BasePlugin;
 
 use Realtyna\BasePlugin\Boot\App;
-use Realtyna\BasePlugin\Components\TestComponent;
+use Realtyna\BasePlugin\Components\Test\TestComponent;
 use Realtyna\BasePlugin\Settings\MainPage;
 use Realtyna\Core\StartUp;
 
