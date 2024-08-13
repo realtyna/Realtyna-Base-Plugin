@@ -1,6 +1,7 @@
 <?php
 
-namespace Realtyna\Core\Utilities;
+namespace Realtyna\BasePlugin\Boot;
+use Realtyna\Core\Utilities\Container;
 
 class App
 {

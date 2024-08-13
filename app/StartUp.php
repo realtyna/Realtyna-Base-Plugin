@@ -17,8 +17,7 @@ abstract class StartUp
         $this->config = $config;
         $this->container = new Container();
 
-        // Set the container in the App class for global access.
-        App::setContainer($this->container);
+        $this->boot();
 
         $this->components();
         $this->registerComponents();
@@ -39,6 +38,7 @@ abstract class StartUp
         }
     }
 
+    abstract protected function boot(): void;
     abstract protected function components(): void;
     abstract protected function setting(): void;
 }
