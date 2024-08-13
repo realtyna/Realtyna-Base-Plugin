@@ -4,7 +4,6 @@ namespace Realtyna\Core;
 
 use Realtyna\Core\Abstracts\AdminPageAbstract;
 use Realtyna\Core\Abstracts\ComponentAbstract;
-use Realtyna\Core\Utilities\App;
 use Realtyna\Core\Utilities\Container;
 
 abstract class StartUp
@@ -14,6 +13,9 @@ abstract class StartUp
     private array $components = [];
     private array $adminPages = [];
 
+    /**
+     * @throws \ReflectionException
+     */
     public function __construct(Config $config)
     {
         $this->config = $config;
