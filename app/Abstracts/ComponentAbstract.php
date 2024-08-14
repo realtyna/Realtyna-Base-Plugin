@@ -50,6 +50,12 @@ abstract class ComponentAbstract
      */
     protected array $customTaxonomies = [];
 
+
+    // TODO
+    //      Add the Following Abstract and Support them here
+    //      CronJobAbstract
+    //      CustomCapabilityAbstract
+    //      CustomRewriteRuleAbstract
     /**
      * ComponentAbstract constructor.
      *
