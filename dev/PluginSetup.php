@@ -8,7 +8,8 @@ class PluginSetup
 {
     public static function changeNamespace(): void
     {
-        $rootPath = __DIR__ . '/..';
+
+        $rootPath = dirname(__DIR__);
         $folderName = basename($rootPath);
         $newNamespace = 'Realtyna\\' . self::formatNamespace($folderName);
 
@@ -45,7 +46,7 @@ class PluginSetup
 
     public static function changePluginDetails(): void
     {
-        $rootPath = __DIR__ . '/..';
+        $rootPath = dirname(__DIR__);
         $folderName = basename($rootPath);
         $slugName = strtolower(str_replace(' ', '-', $folderName));
         $constantName = strtoupper(str_replace(' ', '_', $folderName));
