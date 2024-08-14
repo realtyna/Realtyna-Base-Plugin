@@ -26,7 +26,7 @@ class TestRestApiEndpoint extends RestApiEndpointAbstract
      * @param \WP_REST_Request $request The request object.
      * @return \WP_REST_Response|\WP_Error The response object or WP_Error on failure.
      */
-    public function handleRequest(\WP_REST_Request $request)
+    public function handleRequest(\WP_REST_Request $request): \WP_Error|\WP_REST_Response
     {
         // Process the request (example)
         $data = [
