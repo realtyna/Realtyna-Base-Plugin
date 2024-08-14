@@ -13,10 +13,6 @@ class Main extends StartUp
 
     protected function components(): void
     {
-        //CustomTaxonomyAbstract
-        //CronJobAbstract
-        //CustomCapabilityAbstract
-        //CustomRewriteRuleAbstract
         $this->addComponent(TestComponent::class);
     }
 
