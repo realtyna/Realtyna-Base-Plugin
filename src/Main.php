@@ -5,6 +5,7 @@ namespace Realtyna\BasePlugin;
 use Realtyna\BasePlugin\Boot\App;
 use Realtyna\BasePlugin\Components\Test\TestComponent;
 use Realtyna\BasePlugin\Settings\MainPage;
+use Realtyna\BasePlugin\Settings\Settings;
 use Realtyna\Core\StartUp;
 
 class Main extends StartUp
@@ -37,8 +38,8 @@ class Main extends StartUp
 
     }
 
-    public static function uninstallation()
+    public static function uninstallation(): void
     {
-
+        Settings::delete_settings();
     }
 }
