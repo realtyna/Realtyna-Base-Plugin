@@ -1,4 +1,5 @@
 <?php
+
 /**
  * App configuration file.
  */
@@ -8,6 +9,7 @@ return [
     'text-domain' => 'realtyna-base-plugin',
     'log' => [
         'active' => true,
-        'level' => 'error'
+        'level' => 'error',
+        'path' => REALTYNA_BASE_PLUGIN_DIR . '/logs'
     ],
 ];
