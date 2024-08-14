@@ -18,7 +18,7 @@ class PluginSetup
             return;
         }
 
-        $rootPath = __DIR__ . '/../..';
+        $rootPath = __DIR__ . '/..';
 
         // Change the namespace in PHP files
         $directory = new \RecursiveDirectoryIterator($rootPath);
@@ -60,7 +60,7 @@ class PluginSetup
             return;
         }
 
-        $rootPath = __DIR__ . '/../..';
+        $rootPath = __DIR__ . '/..';
         $slugName = strtolower(str_replace(' ', '-', $pluginName));
         $constantName = strtoupper(str_replace(' ', '_', $pluginName));
 
