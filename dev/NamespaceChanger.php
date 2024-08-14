@@ -1,6 +1,6 @@
 <?php
 
-namespace Realtyna\BasePlugin\dev;
+namespace Realtyna\Dev;
 
 use RegexIterator;
 
@@ -18,7 +18,10 @@ class NamespaceChanger
             return;
         }
 
-        $directory = new \RecursiveDirectoryIterator(__DIR__);
+        $rootPath = __DIR__ . '/../..';
+
+        // Change the namespace in PHP files
+        $directory = new \RecursiveDirectoryIterator($rootPath);
         $iterator = new \RecursiveIteratorIterator($directory);
         $regex = new \RegexIterator($iterator, '/^.+\.php$/i', RegexIterator::GET_MATCH);
 
@@ -27,6 +30,20 @@ class NamespaceChanger
             $fileContent = file_get_contents($filePath);
             $fileContent = str_replace($currentNamespace, $newNamespace, $fileContent);
             file_put_contents($filePath, $fileContent);
+        }
+
+        // Change the namespace in composer.json
+        $composerJsonPath = $rootPath . '/composer.json';
+        if (file_exists($composerJsonPath)) {
+            $composerJsonContent = file_get_contents($composerJsonPath);
+            $composerJsonContent = str_replace(
+                addslashes($currentNamespace) . "\\\\",
+                addslashes($newNamespace) . "\\\\",
+                $composerJsonContent
+            );
+            file_put_contents($composerJsonPath, $composerJsonContent);
+        } else {
+            echo "composer.json not found.\n";
         }
 
         echo "Namespace changed to {$newNamespace}\n";
