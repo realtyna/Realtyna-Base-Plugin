@@ -18,7 +18,7 @@ class NamespaceChanger
             return;
         }
 
-        $rootPath = __DIR__ . '/../..';
+        $rootPath = __DIR__ . '/..';
 
         // Change the namespace in PHP files
         $directory = new \RecursiveDirectoryIterator($rootPath);
