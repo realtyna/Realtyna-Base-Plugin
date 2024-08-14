@@ -40,7 +40,8 @@
         "test": "phpunit",
         "post-create-project-cmd": [
             "Realtyna\\Dev\\PluginSetup::changeNamespace",
-            "Realtyna\\Dev\\PluginSetup::changePluginDetails"
+            "Realtyna\\Dev\\PluginSetup::changePluginDetails",
+            "composer dump-autoload"
         ]
     }
 }
