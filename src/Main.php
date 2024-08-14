@@ -41,7 +41,7 @@ class Main extends StartUp
      */
     public function requirements(): bool
     {
-        return false;
+        return true;
     }
 
     /**
