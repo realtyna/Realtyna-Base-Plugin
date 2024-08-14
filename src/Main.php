@@ -32,11 +32,19 @@ class Main extends StartUp
         if($this->config->get('log.active')){
             Log::init($this->config->get('log.path'), $this->config->get('log.level'));
         }
-        Log::error('aasdasd');
     }
 
     /**
-     * @throws \ReflectionException
+     * Check plugin requirements before activation.
+     *
+     * @return bool True if requirements are met, false otherwise.
+     */
+    public function requirements(): bool
+    {
+        return false;
+    }
+
+    /**
      */
     public function activation(): void
     {

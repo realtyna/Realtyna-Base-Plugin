@@ -5,6 +5,7 @@ namespace Realtyna\Core;
 use Realtyna\Core\Abstracts\AdminPageAbstract;
 use Realtyna\Core\Abstracts\ComponentAbstract;
 use Realtyna\Core\Abstracts\Database\MigrationAbstract;
+use Realtyna\Core\Exceptions\RequirementsNotMetException;
 use Realtyna\Core\Utilities\Container;
 
 /**
@@ -52,21 +53,25 @@ abstract class StartUp
      *
      * @param Config $config The configuration instance for the plugin.
      * @throws \ReflectionException
+     * @throws RequirementsNotMetException
      */
     public function __construct(Config $config)
     {
-        $this->config = $config;
-        $this->container = new Container();
+        if($this->requirements()){
+            $this->config = $config;
+            $this->container = new Container();
 
-        $this->boot();
+            $this->boot();
 
-        $this->migrations();
+            $this->migrations();
 
-        $this->adminPages();
-        $this->registerAdminPages();
+            $this->adminPages();
+            $this->registerAdminPages();
 
-        $this->components();
-        $this->registerComponents();
+            $this->components();
+            $this->registerComponents();
+        }
+        throw new RequirementsNotMetException('Plugin\'s requirements was not met.');
     }
 
     /**
@@ -206,4 +211,17 @@ abstract class StartUp
      * @return void
      */
     abstract protected function migrations(): void;
+
+    /**
+     * Method to check plugin requirements.
+     *
+     * This method should be implemented by the subclass to check if all
+     * necessary requirements (e.g., PHP version, WordPress version, other plugins)
+     * are met before the plugin is activated.
+     *
+     * @return bool Returns true if all requirements are met, false otherwise.
+     */
+    abstract protected function requirements(): bool;
+
+
 }
