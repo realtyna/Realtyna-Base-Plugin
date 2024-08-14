@@ -39,7 +39,8 @@
     "scripts": {
         "test": "phpunit",
         "post-create-project-cmd": [
-            "Realtyna\\Dev\\NamespaceChanger::changeNamespace"
+            "Realtyna\\Dev\\PluginSetup::changeNamespace",
+            "Realtyna\\Dev\\PluginSetup::changePluginDetails"
         ]
     }
 }
