@@ -38,7 +38,7 @@ abstract class RestApiEndpointAbstract
      * @param \WP_REST_Request $request The request object.
      * @return \WP_REST_Response|\WP_Error The response object or WP_Error on failure.
      */
-    abstract public function handleRequest(\WP_REST_Request $request);
+    abstract public function handleRequest(\WP_REST_Request $request): \WP_Error|\WP_REST_Response;
 
     /**
      * Send a JSON response.
@@ -47,7 +47,7 @@ abstract class RestApiEndpointAbstract
      * @param int $status_code The HTTP status code (default is 200).
      * @return \WP_REST_Response
      */
-    protected function sendJsonResponse($data, int $status_code = 200): \WP_REST_Response
+    protected function sendJsonResponse(mixed $data, int $status_code = 200): \WP_REST_Response
     {
         return new \WP_REST_Response($data, $status_code);
     }
