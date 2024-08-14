@@ -46,6 +46,11 @@ abstract class ComponentAbstract
     protected array $widgets = [];
 
     /**
+     * @var array List of custom taxonomy class names.
+     */
+    protected array $customTaxonomies = [];
+
+    /**
      * ComponentAbstract constructor.
      *
      * Initializes the component by calling methods to define and register post types,
@@ -63,6 +68,7 @@ abstract class ComponentAbstract
         $this->shortcodes();
         $this->restApiEndpoints();
         $this->widgets();
+        $this->customTaxonomies();
         $this->registerAdminPages();
         $this->registerPostTypes();
         $this->registerSubComponents();
@@ -70,6 +76,7 @@ abstract class ComponentAbstract
         $this->registerShortcodes();
         $this->registerRestApiEndpoints();
         $this->registerWidgets();
+        $this->registerCustomTaxonomies();
         $this->register();
     }
 
@@ -136,6 +143,15 @@ abstract class ComponentAbstract
      * @return void
      */
     abstract public function widgets(): void;
+
+
+    /**
+     * Defines the custom taxonomies that the component should register.
+     * This method must be implemented by the subclass.
+     *
+     * @return void
+     */
+    abstract public function customTaxonomies(): void;
 
     /**
      * Adds an admin page to the component.
@@ -310,6 +326,32 @@ abstract class ComponentAbstract
         foreach ($this->widgets as $widget) {
             new $widget();
             // The widget will automatically register itself via the constructor in WidgetAbstract
+        }
+    }
+
+    /**
+     * Adds a custom taxonomy to the component.
+     *
+     * @param string $customTaxonomy The class name of the custom taxonomy to add.
+     * @return void
+     */
+    public function addCustomTaxonomy(string $customTaxonomy): void
+    {
+        $this->customTaxonomies[] = $customTaxonomy;
+    }
+
+    /**
+     * Registers all custom taxonomies associated with the component.
+     *
+     * @return void
+     */
+    private function registerCustomTaxonomies(): void
+    {
+        foreach ($this->customTaxonomies as $customTaxonomy) {
+            $service = new $customTaxonomy();
+            if ($service instanceof CustomTaxonomyAbstract) {
+                add_action('init', [$service, 'registerTaxonomy']);
+            }
         }
     }
 }
