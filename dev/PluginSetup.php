@@ -8,7 +8,6 @@ class PluginSetup
 {
     public static function changeNamespace(): void
     {
-
         $rootPath = dirname(__DIR__);
         $folderName = basename($rootPath);
         $newNamespace = 'Realtyna\\' . self::formatNamespace($folderName);
@@ -48,7 +47,7 @@ class PluginSetup
     {
         $rootPath = dirname(__DIR__);
         $folderName = basename($rootPath);
-        $slugName = strtolower(str_replace('-', '-', $folderName));
+        $slugName = strtolower($folderName);
         $constantName = strtoupper(str_replace('-', '_', $folderName));
         $pluginName = self::formatPluginName($folderName);
 
@@ -66,6 +65,8 @@ class PluginSetup
         // Update the Plugin Name in the new main file
         $fileContent = file_get_contents($newMainFile);
         $fileContent = str_replace('Plugin Name: Realtyna Base Plugin', 'Plugin Name: ' . $pluginName, $fileContent);
+        $fileContent = str_replace('Realtyna Base Plugin', $pluginName, $fileContent);
+        $fileContent = str_replace('your-plugin-slug', $slugName, $fileContent);
         file_put_contents($newMainFile, $fileContent);
 
         // Replace REALTYNA_BASE_PLUGIN with the new constant
@@ -78,6 +79,19 @@ class PluginSetup
             $fileContent = file_get_contents($filePath);
             $fileContent = str_replace('REALTYNA_BASE_PLUGIN', $constantName, $fileContent);
             file_put_contents($filePath, $fileContent);
+        }
+
+        // Update the config file
+        $configFilePath = $rootPath . '/src/Config/config.php';
+        if (file_exists($configFilePath)) {
+            $configContent = file_get_contents($configFilePath);
+            $configContent = str_replace("'name' => 'Realtyna Base Plugin'", "'name' => '{$pluginName}'", $configContent);
+            $configContent = str_replace("'slug' => 'realtyna-base-plugin'", "'slug' => '{$slugName}'", $configContent);
+            $configContent = str_replace("'text-domain' => 'realtyna-base-plugin'", "'text-domain' => '{$slugName}'", $configContent);
+            $configContent = str_replace('TEST_PLUGIN_DIR', strtoupper($slugName) . '_DIR', $configContent);
+            file_put_contents($configFilePath, $configContent);
+        } else {
+            echo "config.php not found.\n";
         }
 
         echo "Plugin details updated with name {$pluginName}\n";
