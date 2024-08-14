@@ -3,6 +3,7 @@
 namespace Realtyna\BasePlugin;
 
 use Realtyna\BasePlugin\Boot\App;
+use Realtyna\BasePlugin\Boot\Log;
 use Realtyna\BasePlugin\Components\Test\TestComponent;
 use Realtyna\BasePlugin\Database\CreateTestTable;
 use Realtyna\BasePlugin\Settings\MainPage;
@@ -28,6 +29,10 @@ class Main extends StartUp
     {
         // Set the container in the App class for global access.
         App::setContainer($this->container);
+        if($this->config->get('log.active')){
+            Log::init($this->config->get('log.path'), $this->config->get('log.level'));
+        }
+        Log::error('aasdasd');
     }
 
     /**
