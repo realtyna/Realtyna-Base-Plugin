@@ -8,7 +8,6 @@
     },
     "autoload": {
         "psr-4": {
-            "Realtyna\\Core\\": "app/",
             "Realtyna\\BasePlugin\\": "src/"
         },
         "files": [
