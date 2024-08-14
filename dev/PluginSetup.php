@@ -8,17 +8,11 @@ class PluginSetup
 {
     public static function changeNamespace(): void
     {
-        $currentNamespace = 'Realtyna\\BasePlugin';
-        echo "Enter your desired namespace (e.g., MyCompany\\MyPlugin): ";
-        $handle = fopen("php://stdin", "r");
-        $newNamespace = trim(fgets($handle));
-
-        if (empty($newNamespace)) {
-            echo "No namespace provided. Using default: {$currentNamespace}\n";
-            return;
-        }
-
         $rootPath = __DIR__ . '/..';
+        $folderName = basename($rootPath);
+        $newNamespace = 'Realtyna\\' . self::formatNamespace($folderName);
+
+        $currentNamespace = 'Realtyna\\BasePlugin';
 
         // Change the namespace in PHP files
         $directory = new \RecursiveDirectoryIterator($rootPath);
@@ -51,18 +45,11 @@ class PluginSetup
 
     public static function changePluginDetails(): void
     {
-        echo "Enter your plugin name (e.g., My Awesome Plugin): ";
-        $handle = fopen("php://stdin", "r");
-        $pluginName = trim(fgets($handle));
-
-        if (empty($pluginName)) {
-            echo "No plugin name provided. Aborting.\n";
-            return;
-        }
-
         $rootPath = __DIR__ . '/..';
-        $slugName = strtolower(str_replace(' ', '-', $pluginName));
-        $constantName = strtoupper(str_replace(' ', '_', $pluginName));
+        $folderName = basename($rootPath);
+        $slugName = strtolower(str_replace(' ', '-', $folderName));
+        $constantName = strtoupper(str_replace(' ', '_', $folderName));
+        $pluginName = self::formatPluginName($folderName);
 
         // Rename the main plugin file
         $oldMainFile = $rootPath . '/realtyna-base-plugin.php';
@@ -93,5 +80,15 @@ class PluginSetup
         }
 
         echo "Plugin details updated with name {$pluginName}\n";
+    }
+
+    private static function formatNamespace(string $name): string
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $name)));
+    }
+
+    private static function formatPluginName(string $name): string
+    {
+        return ucwords(str_replace('-', ' ', $name));
     }
 }
