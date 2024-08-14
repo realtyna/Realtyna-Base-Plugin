@@ -37,6 +37,9 @@
         "symfony/var-dumper": "^6.4"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "post-create-project-cmd": [
+            "Realtyna\\BasePlugin\\dev\\NamespaceChanger::changeNamespace"
+        ]
     }
 }
