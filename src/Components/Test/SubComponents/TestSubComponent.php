@@ -29,7 +29,6 @@ class TestSubComponent extends ComponentAbstract
 
     public function shortcodes(): void
     {
-        // TODO: Implement shortcodes() method.
     }
 
     public function restApiEndpoints(): void
@@ -37,6 +36,10 @@ class TestSubComponent extends ComponentAbstract
     }
 
     public function widgets(): void
+    {
+    }
+
+    public function customTaxonomies(): void
     {
     }
 }

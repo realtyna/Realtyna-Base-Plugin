@@ -8,6 +8,7 @@ use Realtyna\BasePlugin\Components\Test\PostTypes\TestPostType;
 use Realtyna\BasePlugin\Components\Test\RestApiEndpoints\TestRestApiEndpoint;
 use Realtyna\BasePlugin\Components\Test\Shortcodes\TestShortcode;
 use Realtyna\BasePlugin\Components\Test\SubComponents\TestSubComponent;
+use Realtyna\BasePlugin\Components\Test\Taxonomies\GenreTaxonomy;
 use Realtyna\BasePlugin\Components\Test\Widgets\TestWidget;
 use Realtyna\Core\Abstracts\ComponentAbstract;
 
@@ -52,5 +53,10 @@ class TestComponent extends ComponentAbstract
     public function widgets(): void
     {
         $this->addWidget(TestWidget::class);
+    }
+
+    public function customTaxonomies(): void
+    {
+        $this->addCustomTaxonomy(GenreTaxonomy::class);
     }
 }
