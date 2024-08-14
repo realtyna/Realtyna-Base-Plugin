@@ -48,8 +48,8 @@ class PluginSetup
     {
         $rootPath = dirname(__DIR__);
         $folderName = basename($rootPath);
-        $slugName = strtolower(str_replace(' ', '-', $folderName));
-        $constantName = strtoupper(str_replace(' ', '_', $folderName));
+        $slugName = strtolower(str_replace('-', '-', $folderName));
+        $constantName = strtoupper(str_replace('-', '_', $folderName));
         $pluginName = self::formatPluginName($folderName);
 
         // Rename the main plugin file
