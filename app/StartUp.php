@@ -22,7 +22,7 @@ abstract class StartUp
     /**
      * @var Config The configuration settings for the plugin.
      */
-    private Config $config;
+    protected Config $config;
 
     /**
      * @var Container The dependency injection container.
