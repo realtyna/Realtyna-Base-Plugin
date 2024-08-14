@@ -25,7 +25,7 @@ class TestComponent extends ComponentAbstract
 
     public function subComponents(): void
     {
-        $this->addSubComponent(TestSubComponent::class);
+//        $this->addSubComponent(TestSubComponent::class);
     }
 
     public function adminPages(): void
