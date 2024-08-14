@@ -88,7 +88,7 @@ class PluginSetup
             $configContent = str_replace("'name' => 'Realtyna Base Plugin'", "'name' => '{$pluginName}'", $configContent);
             $configContent = str_replace("'slug' => 'realtyna-base-plugin'", "'slug' => '{$slugName}'", $configContent);
             $configContent = str_replace("'text-domain' => 'realtyna-base-plugin'", "'text-domain' => '{$slugName}'", $configContent);
-            $configContent = str_replace('TEST_PLUGIN_DIR', strtoupper($slugName) . '_DIR', $configContent);
+            $configContent = str_replace('TEST_PLUGIN_DIR', $constantName . '_DIR', $configContent);
             file_put_contents($configFilePath, $configContent);
         } else {
             echo "config.php not found.\n";
