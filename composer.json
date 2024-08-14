@@ -3,7 +3,8 @@
     "description": "A base plugin for Realtyna WordPress plugins.",
     "type": "wordpress-plugin",
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "realtyna/wp-plugin-framework": "*"
     },
     "autoload": {
         "psr-4": {
