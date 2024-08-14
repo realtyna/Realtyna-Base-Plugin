@@ -2,6 +2,8 @@
 
 namespace Realtyna\BasePlugin\dev;
 
+use RegexIterator;
+
 class NamespaceChanger
 {
     public static function changeNamespace(): void
@@ -18,7 +20,7 @@ class NamespaceChanger
 
         $directory = new \RecursiveDirectoryIterator(__DIR__);
         $iterator = new \RecursiveIteratorIterator($directory);
-        $regex = new \RegexIterator($iterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH);
+        $regex = new \RegexIterator($iterator, '/^.+\.php$/i', RegexIterator::GET_MATCH);
 
         foreach ($regex as $file) {
             $filePath = $file[0];
